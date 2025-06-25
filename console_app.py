@@ -8,7 +8,7 @@ import asyncio
 from app.models.agent import Agent
 from config import settings
 
-DB_URL = settings.database_url
+DB_URL = settings.DATABASE_URL
 engine = create_async_engine(DB_URL, echo=False, future=True)
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
@@ -23,7 +23,7 @@ def pause():
 # Testing db connection
 async def test_db_connection():
     try:
-        async with engine.begin as conn:
+        async with engine.begin() as conn:
             await conn.run_sync(lambda c: None)
         return True
     except Exception as e:
@@ -57,7 +57,7 @@ async def add_new_agent():
         try:
             await session.commit()
             print("Agent added successfully!")
-        except Exceptaion as e:
+        except Exception as e:
             await session.rollback()
             print(f"Error: {e}")
     pause()

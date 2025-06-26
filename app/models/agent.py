@@ -1,24 +1,26 @@
 """Agent model representing the agents table."""
 
-from sqlalchemy import Column, Integer, String, Text
-from sqlalchemy.ext.asyncio import AsyncAttrs
-from app.database.base import Base
+class Agent:
+    """
+    Agent model representing the agents table.
+    """
+    def __init__(self, id, codename, realname, location, status, missionscompleted):
+        self.id = id
+        self.codename = codename
+        self.realname = realname
+        self.location = location
+        self.status = status
+        self.missionscompleted = missionscompleted
 
-class Agent(Base, AsyncAttrs):
-    """Agent model representing intelligence agents"""
-    
-    __tablename__ = "agents"
-    
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    codename = Column(String(50), nullable=False, unique=True, index=True)
-    realname = Column(String(100), nullable=False)
-    location = Column(String(100), nullable=False)
-    status = Column(String(20), nullable=False)
-    missionscompleted = Column(Integer, nullable=False, default=0)
-    
-    def __repr__(self):
-        return f"<Agent(id={self.id}, codename='{self.codename}', status='{self.status}')>"
-    
+    def __str__(self):
+        """
+        Return a string representation of the agent.
+        """
+        return (
+            f"ID: {self.id} | Codename: {self.codename} | Name: {self.realname} | "
+            f"Location: {self.location} | Status: {self.status} | Missions: {self.missionscompleted}"
+        )
+
     def to_dict(self):
         """Convert agents to dictionary representation"""
         return {
@@ -26,7 +28,7 @@ class Agent(Base, AsyncAttrs):
             "codename": self.codename,
             "realname": self.realname,
             "location": self.location,
-            "status:": self.status,
+            "status": self.status,
             "missionscompleted": self.missionscompleted
         }
     

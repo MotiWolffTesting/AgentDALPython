@@ -3,17 +3,22 @@ from app.models.agent import Agent
 import sys
 import time
 
+
 # Clear the console
 def clear():
     import os
-    os.system('cls' if os.name == 'nt' else 'clear')
+
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 # Pause the program
 def pause():
     input("\nPress Enter to continue...")
 
+
 # Initialize the database connection
 dal = AgentDAL()
+
 
 # Test the database connection
 def test_db_connection():
@@ -23,7 +28,8 @@ def test_db_connection():
     except Exception as e:
         print(f"Database connection test: Failed ({e})")
         return False
-    
+
+
 # View all agents
 def view_all_agents():
     agents = dal.get_all_agents()
@@ -33,6 +39,7 @@ def view_all_agents():
     for agent in agents:
         print(agent)
     pause()
+
 
 # Add a new agent
 def add_new_agent():
@@ -50,6 +57,7 @@ def add_new_agent():
         print(f"Error: {e}")
     pause()
 
+
 # Update an agent's location
 def update_agent_location():
     print("\n=== UPDATE AGENT LOCATION ===")
@@ -59,6 +67,7 @@ def update_agent_location():
     print("Location updated!")
     pause()
 
+
 # Delete an agent
 def delete_agent():
     print("\n=== DELETE AGENT ===")
@@ -66,6 +75,7 @@ def delete_agent():
     dal.delete_agent(agent_id)
     print("Agent deleted.")
     pause()
+
 
 # Search for agents
 def search_agents():
@@ -79,6 +89,7 @@ def search_agents():
             print(agent)
     pause()
 
+
 # Generate a status report
 def status_report():
     print("\n=== STATUS REPORT ===")
@@ -86,6 +97,7 @@ def status_report():
     for status, count in report:
         print(f"{status}: {count} agent(s)")
     pause()
+
 
 # Add mission count
 def add_mission_count():
@@ -96,6 +108,7 @@ def add_mission_count():
     dal.add_mission_count(agent_id, count)
     print(f"Added {count} mission(s) to agent.")
     pause()
+
 
 # Main menu
 def main_menu():
@@ -157,5 +170,6 @@ def main_menu():
             time.sleep(1)
             clear()
 
+
 if __name__ == "__main__":
-    main_menu() 
+    main_menu()

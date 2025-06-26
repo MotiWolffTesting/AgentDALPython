@@ -7,16 +7,18 @@ load_dotenv()
 
 # Database configuration
 DB_CONFIG = {
-    'host': os.getenv('DB_HOST'),
-    'user': os.getenv('DB_USER'),
-    'password': os.getenv('DB_PASSWORD'),
-    'database': os.getenv('DB_NAME')
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
 }
+
 
 class AgentDAL:
     """
     Data Access Layer for the agents table.
     """
+
     def __init__(self):
         self.db_config = DB_CONFIG
 
@@ -32,7 +34,9 @@ class AgentDAL:
         """
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT id, codeName, realName, location, status, missionsCompleted FROM agents")
+        cursor.execute(
+            "SELECT id, codeName, realName, location, status, missionsCompleted FROM agents"
+        )
         agents = [Agent(*row) for row in cursor.fetchall()]
         cursor.close()
         conn.close()
@@ -47,7 +51,7 @@ class AgentDAL:
         try:
             cursor.execute(
                 "INSERT INTO agents (codeName, realName, location, status, missionsCompleted) VALUES (%s, %s, %s, %s, %s)",
-                (codename, realname, location, status, missions)
+                (codename, realname, location, status, missions),
             )
             conn.commit()
             success = True
@@ -66,7 +70,9 @@ class AgentDAL:
         """
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("UPDATE agents SET location=%s WHERE id=%s", (new_location, agent_id))
+        cursor.execute(
+            "UPDATE agents SET location=%s WHERE id=%s", (new_location, agent_id)
+        )
         conn.commit()
         cursor.close()
         conn.close()
@@ -88,7 +94,10 @@ class AgentDAL:
         """
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT id, codeName, realName, location, status, missionsCompleted FROM agents WHERE codeName LIKE %s OR realName LIKE %s", (f"%{term}%", f"%{term}%"))
+        cursor.execute(
+            "SELECT id, codeName, realName, location, status, missionsCompleted FROM agents WHERE codeName LIKE %s OR realName LIKE %s",
+            (f"%{term}%", f"%{term}%"),
+        )
         agents = [Agent(*row) for row in cursor.fetchall()]
         cursor.close()
         conn.close()
@@ -112,7 +121,10 @@ class AgentDAL:
         """
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("UPDATE agents SET missionsCompleted = missionsCompleted + %s WHERE id=%s", (count, agent_id))
+        cursor.execute(
+            "UPDATE agents SET missionsCompleted = missionsCompleted + %s WHERE id=%s",
+            (count, agent_id),
+        )
         conn.commit()
         cursor.close()
-        conn.close() 
+        conn.close()

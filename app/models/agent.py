@@ -1,9 +1,11 @@
 """Agent model representing the agents table."""
 
+
 class Agent:
     """
     Agent model representing the agents table.
     """
+
     def __init__(self, id, codename, realname, location, status, missionscompleted):
         self.id = id
         self.codename = codename
@@ -29,6 +31,5 @@ class Agent:
             "realname": self.realname,
             "location": self.location,
             "status": self.status,
-            "missionscompleted": self.missionscompleted
+            "missionscompleted": self.missionscompleted,
         }
-    

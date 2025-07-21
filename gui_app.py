@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from app.dal.agent_dal import AgentDAL
 
+
+
 class AgentManagerGUI:
     """ 
     TKInter Class for managing the GUI

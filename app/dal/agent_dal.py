@@ -12,6 +12,7 @@ DB_CONFIG = {
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
 }
+print("Connecting to MySQL with:", DB_CONFIG)
 
 
 class AgentDAL:
